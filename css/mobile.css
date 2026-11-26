@@ -1,0 +1,52 @@
+
+/* Al-Bakry ERP responsive layer */
+html { -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+body { overflow-x:hidden; }
+button, input, select, textarea { font: inherit; }
+img, table { max-width:100%; }
+.table-responsive, .table-container, .data-table-wrapper { max-width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+input,select,textarea { max-width:100%; }
+@media (max-width: 900px) {
+  .sidebar { width:240px; }
+  .main-content { margin-right:240px; }
+  .top-header { padding-inline:18px; }
+}
+@media (max-width: 680px) {
+  html, body { width:100%; min-width:0; }
+  body { font-size:14px; }
+  .app-container { display:block; min-height:100dvh; }
+  .sidebar { width:min(86vw,300px); height:100dvh; right:0; top:0; transform:translateX(105%); transition:transform .25s ease; box-shadow:-12px 0 35px rgba(0,0,0,.24); z-index:1000; }
+  body.mobile-menu-open .sidebar { transform:translateX(0); }
+  body.mobile-menu-open:after { content:""; position:fixed; inset:0; background:rgba(0,0,0,.48); z-index:999; }
+  .main-content { margin:0 !important; width:100%; min-width:0; }
+  .top-header { min-height:62px; height:auto; padding:10px 12px; gap:8px; flex-wrap:wrap; }
+  .header-search { flex:1 1 100%; order:3; }
+  .header-search input { width:100%; }
+  .header-actions { gap:6px; }
+  .content-wrapper { padding:12px !important; width:100%; min-width:0; }
+  .page-header, .section-header { gap:10px; flex-wrap:wrap; }
+  .page-header h1, .section-header h2 { font-size:20px !important; }
+  .glass-card, .metric-card, .card { max-width:100%; }
+  .metrics-grid, .stats-grid, .dashboard-grid { grid-template-columns:repeat(2,minmax(0,1fr)) !important; gap:10px !important; }
+  .metric-card { min-height:0 !important; padding:12px !important; }
+  .metric-card h3 { font-size:13px !important; }
+  .metric-card .metric-value, .metric-value { font-size:20px !important; }
+  .form-grid, .form-row, .grid-2, .grid-3 { grid-template-columns:minmax(0,1fr) !important; }
+  .form-group, .form-control, .input-group { width:100%; min-width:0; }
+  input:not([type=checkbox]):not([type=radio]), select, textarea { min-height:42px; font-size:16px !important; }
+  textarea { min-height:88px; }
+  button, .btn { min-height:42px; touch-action:manipulation; }
+  .menu-item { min-height:46px; }
+  table { min-width:640px; }
+  .modal { padding:8px !important; align-items:flex-end !important; }
+  .modal-content { width:100% !important; max-width:100% !important; max-height:92dvh !important; overflow:auto !important; border-radius:16px 16px 8px 8px !important; }
+  .modal-header, .modal-body, .modal-footer { padding:12px !important; }
+  .modal-footer { display:flex; flex-wrap:wrap; gap:8px; }
+  .modal-footer .btn { flex:1 1 120px; }
+  .login-card { width:calc(100% - 24px) !important; max-width:420px !important; }
+  #bakry-developer-credit { font-size:9px !important; }
+}
+@media (max-width:380px) {
+  .metrics-grid, .stats-grid, .dashboard-grid { grid-template-columns:minmax(0,1fr) !important; }
+  .content-wrapper { padding:9px !important; }
+}
