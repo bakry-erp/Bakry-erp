@@ -1,0 +1,12 @@
+{
+  "name": "معرض البكري ERP",
+  "short_name": "البكري",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#101827",
+  "theme_color": "#101827",
+  "description": "نظام إدارة معرض البكري"
+}
