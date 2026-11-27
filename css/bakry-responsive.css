@@ -1,0 +1,12 @@
+/* Bakry ERP responsive compatibility layer v5.1.0.
+   Drawer state and z-index are intentionally controlled by mobile.css only. */
+@media (max-width: 800px) {
+  .app-container { display: block !important; width: 100% !important; min-width: 0 !important; }
+  .main-content { width: 100% !important; min-width: 0 !important; margin: 0 !important; }
+  .top-header { width: 100% !important; min-width: 0 !important; }
+  .content-wrapper { width: 100% !important; min-width: 0 !important; }
+}
+@media (min-width: 801px) {
+  #bakry-menu-toggle { display: none !important; }
+  .sidebar { transform: none !important; visibility: visible !important; }
+}

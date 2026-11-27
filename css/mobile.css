@@ -1,0 +1,404 @@
+
+/* Al-Bakry ERP responsive layer */
+html { -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+body { overflow-x:hidden; }
+button, input, select, textarea { font: inherit; }
+img, table { max-width:100%; }
+.table-responsive, .table-container, .data-table-wrapper { max-width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+input,select,textarea { max-width:100%; }
+@media (max-width: 900px) {
+  .sidebar { width:240px; }
+  .main-content { margin-right:240px; }
+  .top-header { padding-inline:18px; }
+}
+@media (max-width: 680px) {
+  html, body { width:100%; min-width:0; }
+  body { font-size:14px; }
+  .app-container { display:block; min-height:100dvh; }
+  .sidebar { width:min(86vw,300px); height:100dvh; right:0; top:0; transform:translateX(105%); transition:transform .25s ease; box-shadow:-12px 0 35px rgba(0,0,0,.24); z-index:1000; }
+  body.mobile-menu-open .sidebar { transform:translateX(0); }
+  body.mobile-menu-open:after { content:""; position:fixed; inset:0; background:rgba(0,0,0,.48); z-index:999; }
+  .main-content { margin:0 !important; width:100%; min-width:0; }
+  .top-header { min-height:62px; height:auto; padding:10px 12px; gap:8px; flex-wrap:wrap; }
+  .header-search { flex:1 1 100%; order:3; }
+  .header-search input { width:100%; }
+  .header-actions { gap:6px; }
+  .content-wrapper { padding:12px !important; width:100%; min-width:0; }
+  .page-header, .section-header { gap:10px; flex-wrap:wrap; }
+  .page-header h1, .section-header h2 { font-size:20px !important; }
+  .glass-card, .metric-card, .card { max-width:100%; }
+  .metrics-grid, .stats-grid, .dashboard-grid { grid-template-columns:repeat(2,minmax(0,1fr)) !important; gap:10px !important; }
+  .metric-card { min-height:0 !important; padding:12px !important; }
+  .metric-card h3 { font-size:13px !important; }
+  .metric-card .metric-value, .metric-value { font-size:20px !important; }
+  .form-grid, .form-row, .grid-2, .grid-3 { grid-template-columns:minmax(0,1fr) !important; }
+  .form-group, .form-control, .input-group { width:100%; min-width:0; }
+  input:not([type=checkbox]):not([type=radio]), select, textarea { min-height:42px; font-size:16px !important; }
+  textarea { min-height:88px; }
+  button, .btn { min-height:42px; touch-action:manipulation; }
+  .menu-item { min-height:46px; }
+  table { min-width:640px; }
+  .modal { padding:8px !important; align-items:flex-end !important; }
+  .modal-content { width:100% !important; max-width:100% !important; max-height:92dvh !important; overflow:auto !important; border-radius:16px 16px 8px 8px !important; }
+  .modal-header, .modal-body, .modal-footer { padding:12px !important; }
+  .modal-footer { display:flex; flex-wrap:wrap; gap:8px; }
+  .modal-footer .btn { flex:1 1 120px; }
+  .login-card { width:calc(100% - 24px) !important; max-width:420px !important; }
+  #bakry-developer-credit { font-size:9px !important; }
+}
+@media (max-width:380px) {
+  .metrics-grid, .stats-grid, .dashboard-grid { grid-template-columns:minmax(0,1fr) !important; }
+  .content-wrapper { padding:9px !important; }
+}
+
+/* ============================================================
+   BAKRY FINAL UI PATCH — single white sidebar, reliable drawer,
+   and fluid layout for phones/tablets/desktops.
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
+body { -webkit-text-size-adjust: 100%; }
+
+/* The showroom identity belongs in the sidebar only. */
+.header-brand-display { display: none !important; }
+.sidebar {
+  background: #ffffff !important;
+  color: #172033 !important;
+  border-left: 1px solid #dce3ec !important;
+  box-shadow: 0 4px 24px rgba(15, 23, 42, .08) !important;
+}
+.sidebar-brand {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 11px !important;
+  padding: 22px 16px !important;
+  background: #ffffff !important;
+  color: #172033 !important;
+  border-bottom: 1px solid #e5eaf1 !important;
+}
+.sidebar-brand .bakry-brand-mark,
+.sidebar-brand .bakry-brand-mark i { color: #c99b2e !important; font-size: 29px !important; }
+.sidebar-brand h2,
+.sidebar-brand h2 span,
+#sidebar-brand-name { color: #172033 !important; font-size: 22px !important; font-weight: 900 !important; }
+.sidebar-brand h2 span { color: #c18e18 !important; }
+.sidebar-menu { background: #ffffff !important; padding: 12px 10px !important; }
+.sidebar .menu-item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  min-height: 48px !important;
+  margin: 3px 0 !important;
+  padding: 11px 13px !important;
+  color: #273449 !important;
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  border-radius: 11px !important;
+  font-weight: 700 !important;
+}
+.sidebar .menu-item i { color: #526176 !important; }
+.sidebar .menu-item:hover { background: #f5f7fa !important; border-color: #e2e8f0 !important; color: #172033 !important; }
+.sidebar .menu-item.active {
+  background: #fff8e8 !important;
+  border-color: #f0dfb5 !important;
+  color: #172033 !important;
+  box-shadow: inset -3px 0 #c99b2e !important;
+}
+.sidebar .menu-item.active i { color: #bd8b19 !important; }
+.sidebar-footer {
+  background: #ffffff !important;
+  color: #334155 !important;
+  border-top: 1px solid #e5eaf1 !important;
+  padding: 14px !important;
+}
+.sidebar .user-status-card { background: #f8fafc !important; border-color: #e2e8f0 !important; }
+.sidebar .user-role-lbl { color: #64748b !important; }
+.sidebar .user-role-val { color: #a87912 !important; }
+.sidebar-watermark {
+  color: #475569 !important;
+  border-top: 1px solid #e5eaf1 !important;
+  padding: 11px 8px 7px !important;
+  line-height: 1.55 !important;
+}
+.sidebar-watermark .developer-label { color: #a87912 !important; font-size: 11px !important; font-weight: 800 !important; }
+.sidebar-watermark strong { color: #172033 !important; font-size: 13px !important; }
+.sidebar-watermark > span:last-child { color: #64748b !important; }
+
+/* One yellow button: visible only on phones/tablets. */
+#bakry-menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 46px;
+  width: 46px;
+  min-width: 46px;
+  height: 46px;
+  min-height: 46px;
+  padding: 0;
+  margin: 0 0 0 8px;
+  border: 1px solid #d4a72d !important;
+  border-radius: 12px !important;
+  background: linear-gradient(145deg, #f8d45b, #e5aa19) !important;
+  color: #172033 !important;
+  box-shadow: 0 3px 10px rgba(15, 23, 42, .16) !important;
+  cursor: pointer;
+  z-index: 2005;
+}
+#bakry-menu-toggle i { color: #172033 !important; font-size: 20px !important; }
+#bakry-menu-toggle:focus-visible { outline: 3px solid rgba(229,170,25,.35); outline-offset: 2px; }
+
+@media (min-width: 801px) {
+  #bakry-menu-toggle { display: none !important; }
+  .app-container { display: block !important; }
+  .sidebar {
+    position: fixed !important; top: 0 !important; right: 0 !important; bottom: 0 !important;
+    left: auto !important; width: 270px !important; height: 100vh !important;
+    max-height: 100vh !important; overflow-y: auto !important;
+    transform: none !important; visibility: visible !important; z-index: 1000 !important;
+  }
+  .main-content { margin-right: 270px !important; margin-left: 0 !important; width: calc(100% - 270px) !important; min-width: 0 !important; }
+}
+
+@media (max-width: 800px) {
+  #bakry-menu-toggle { display: inline-flex !important; }
+  .app-container { display: block !important; width: 100% !important; min-width: 0 !important; }
+  .main-content { display: flex !important; flex-direction: column !important; width: 100% !important; min-width: 0 !important; margin: 0 !important; }
+  .sidebar {
+    position: fixed !important; top: 0 !important; right: 0 !important; bottom: 0 !important; left: auto !important;
+    width: min(86vw, 330px) !important; height: 100dvh !important; max-height: 100dvh !important;
+    overflow-x: hidden !important; overflow-y: auto !important;
+    transform: translateX(110%) !important; visibility: visible !important;
+    transition: transform .25s ease !important; z-index: 2002 !important;
+  }
+  .sidebar.open, body.sidebar-open .sidebar { transform: translateX(0) !important; }
+  body.sidebar-open { overflow: hidden !important; }
+  body.sidebar-open::after {
+    content: ""; position: fixed; inset: 0; display: block;
+    background: rgba(15, 23, 42, .48); z-index: 2001;
+  }
+  .top-header {
+    display: flex !important; align-items: center !important; flex-wrap: wrap !important;
+    gap: 8px !important; width: 100% !important; min-width: 0 !important;
+    min-height: 62px !important; height: auto !important; padding: 9px 10px !important;
+    position: sticky !important; top: 0 !important; z-index: 900 !important;
+  }
+  .header-search { order: 3 !important; flex: 1 1 100% !important; width: 100% !important; min-width: 0 !important; }
+  .header-search input { min-width: 0 !important; width: 100% !important; }
+  .header-actions { display: flex !important; flex: 1 1 auto !important; flex-wrap: wrap !important; gap: 6px !important; min-width: 0 !important; max-width: 100% !important; }
+  .role-switcher-container { max-width: 100% !important; min-width: 0 !important; }
+  .content-wrapper { width: 100% !important; max-width: 100% !important; min-width: 0 !important; padding: 12px !important; overflow-x: clip !important; }
+  .page, .page.active, .page > *, .card, .glass-card, .metric-card, .section-header, .page-title-row {
+    max-width: 100% !important; min-width: 0 !important;
+  }
+  .page-title-row { display: flex !important; flex-wrap: wrap !important; gap: 8px !important; }
+  .page-title-row h1, .page-title-row h2 { font-size: clamp(18px, 4.8vw, 23px) !important; line-height: 1.45 !important; overflow-wrap: anywhere; }
+  .metrics-grid, .stats-grid, .dashboard-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 10px !important; }
+  .form-grid, .form-row, .grid-2, .grid-3 { grid-template-columns: minmax(0, 1fr) !important; }
+  .form-group, .form-control, .input-group { min-width: 0 !important; width: 100% !important; }
+  input:not([type=checkbox]):not([type=radio]), select, textarea { min-width: 0 !important; max-width: 100% !important; font-size: 16px !important; }
+  .table-responsive, .table-container, .data-table-wrapper, .defaults-table-wrap {
+    display: block !important; width: 100% !important; max-width: 100% !important;
+    overflow-x: auto !important; -webkit-overflow-scrolling: touch !important;
+  }
+  .data-table { min-width: 720px !important; width: 100% !important; }
+  .modal-overlay, .modal { max-width: 100vw !important; padding: 8px !important; }
+  .modal-content { width: calc(100vw - 16px) !important; max-width: calc(100vw - 16px) !important; max-height: 92dvh !important; overflow: auto !important; }
+  .modal-body { max-width: 100% !important; overflow-x: auto !important; }
+  img, video, canvas, iframe { max-width: 100% !important; }
+}
+@media (max-width: 420px) {
+  .content-wrapper { padding: 8px !important; }
+  .metrics-grid, .stats-grid, .dashboard-grid { grid-template-columns: minmax(0, 1fr) !important; }
+  .top-header { gap: 5px !important; padding-inline: 7px !important; }
+  .header-actions { flex-basis: calc(100% - 54px) !important; }
+  .role-switcher-container { width: 100% !important; }
+}
+@media (prefers-reduced-motion: reduce) { .sidebar { transition: none !important; } }
+
+
+/* ============================================================
+   BAKRY MOBILE REPAIR v5.1.0
+   Fixes drawer stacking/touch interception and normalizes mobile
+   scrolling, wide tables, cards, forms and modal dialogs.
+   ============================================================ */
+@media (max-width: 800px) {
+  html, body { width: 100%; max-width: 100%; overflow-x: hidden !important; }
+  body { min-width: 0 !important; }
+  #app-wrapper, .main-content, .content-wrapper, .page, .page.active {
+    width: 100% !important; max-width: 100% !important; min-width: 0 !important;
+  }
+
+  /* The drawer MUST sit above its backdrop. The previous responsive
+     stylesheet lowered it beneath the backdrop, blocking taps and scroll. */
+  .sidebar {
+    position: fixed !important;
+    inset: 0 0 0 auto !important;
+    width: min(88vw, 340px) !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    max-height: 100vh !important;
+    max-height: 100dvh !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    overscroll-behavior: contain !important;
+    -webkit-overflow-scrolling: touch !important;
+    background: #fff !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateX(110%) !important;
+    transition: transform .24s ease !important;
+    z-index: 2202 !important;
+    pointer-events: auto !important;
+  }
+  .sidebar.open, body.sidebar-open .sidebar {
+    transform: translateX(0) !important;
+    pointer-events: auto !important;
+  }
+  .sidebar-brand { flex: 0 0 auto !important; }
+  .sidebar-menu {
+    display: flex !important;
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    height: auto !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain !important;
+    -webkit-overflow-scrolling: touch !important;
+    touch-action: pan-y !important;
+    scrollbar-width: thin !important;
+    padding-bottom: 16px !important;
+  }
+  .sidebar .menu-item {
+    flex: 0 0 auto !important;
+    min-height: 48px !important;
+    cursor: pointer !important;
+    pointer-events: auto !important;
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: rgba(201,155,46,.15);
+  }
+  .sidebar-footer { flex: 0 0 auto !important; }
+
+  /* Backdrop is intentionally subtle. It never sits above the drawer. */
+  body.sidebar-open::after {
+    content: "" !important;
+    display: block !important;
+    position: fixed !important;
+    inset: 0 !important;
+    background: rgba(15, 23, 42, .18) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    z-index: 2201 !important;
+    pointer-events: auto !important;
+  }
+  body.sidebar-open { overflow: hidden !important; }
+  #bakry-menu-toggle { position: relative !important; z-index: 2203 !important; touch-action: manipulation !important; }
+
+  /* Allow every wide table/list to scroll inside its own area. */
+  .table-responsive, .table-container, .data-table-wrapper,
+  .defaults-table-wrap, .inventory-table-wrap, .chassis-table-wrap {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior-x: contain !important;
+    touch-action: pan-x pan-y !important;
+  }
+  .table-responsive table, .table-container table,
+  .data-table-wrapper table, .defaults-table-wrap table {
+    min-width: 660px !important;
+    max-width: none !important;
+  }
+
+  /* Prevent flex/grid children and input cards from pushing the viewport. */
+  .page-header, .section-header, .page-title-row,
+  .header-actions, .role-switcher-container, .form-grid,
+  .form-row, .grid-2, .grid-3, .input-group,
+  .form-group, .form-section, .card, .glass-card, .metric-card {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+  .page-header, .section-header, .page-title-row,
+  .header-actions, .modal-footer { flex-wrap: wrap !important; }
+  .form-grid, .form-row, .grid-2, .grid-3 {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  .form-group, .form-control, .input-group { width: 100% !important; }
+  .form-group > *, .form-control > * { max-width: 100% !important; }
+  input:not([type=checkbox]):not([type=radio]), select, textarea {
+    width: 100%; max-width: 100% !important; min-width: 0 !important;
+    font-size: 16px !important;
+  }
+  .page-title-row h1, .page-title-row h2,
+  .page-header h1, .section-header h2 {
+    max-width: 100% !important; overflow-wrap: anywhere !important;
+    line-height: 1.45 !important;
+  }
+  .card, .glass-card, .metric-card {
+    border-radius: 14px !important;
+  }
+  .content-wrapper { padding: clamp(8px, 2.6vw, 14px) !important; }
+
+  /* Modals are a separate opaque layer, not mixed with the page beneath. */
+  .modal-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    max-height: 100vh !important;
+    max-height: 100dvh !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain !important;
+    padding: max(8px, env(safe-area-inset-top)) 8px max(8px, env(safe-area-inset-bottom)) !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 3000 !important;
+  }
+  .modal-content {
+    display: flex !important;
+    flex-direction: column !important;
+    width: calc(100vw - 16px) !important;
+    max-width: calc(100vw - 16px) !important;
+    min-width: 0 !important;
+    max-height: calc(100dvh - 16px) !important;
+    overflow: hidden !important;
+    margin: 0 auto !important;
+    border-radius: 14px !important;
+    opacity: 1 !important;
+  }
+  .modal-header, .modal-footer { flex: 0 0 auto !important; min-width: 0 !important; }
+  .modal-body {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior: contain !important;
+  }
+  .modal-footer { display: flex !important; gap: 8px !important; }
+  .modal-footer .btn { flex: 1 1 120px !important; max-width: 100% !important; }
+  body:has(.modal-overlay:not(.hidden)) { overflow: hidden !important; }
+
+  img, video, canvas, iframe { max-width: 100% !important; }
+}
+@media (max-width: 420px) {
+  .sidebar { width: min(90vw, 320px) !important; }
+  .sidebar-brand { padding: 17px 12px !important; }
+  .sidebar-menu { padding-inline: 8px !important; }
+  .sidebar .menu-item { padding: 10px !important; gap: 9px !important; font-size: 13px !important; }
+  .content-wrapper { padding: 8px !important; }
+  .page-title-row h1, .page-header h1, .section-header h2 { font-size: 19px !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sidebar { transition: none !important; }
+}
