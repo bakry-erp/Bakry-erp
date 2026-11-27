@@ -1,0 +1,128 @@
+/* Bakry ERP Stage 3 — isolated theme branding and global-search surface.
+   Theme rules are intentionally scoped to html[data-theme] so palettes cannot leak. */
+.header-search { position: relative; }
+
+/* LIGHT: white search surface with high-contrast dark text (as requested originally). */
+html[data-theme="light"] #bakry-global-search-results {
+  background: #ffffff !important;
+  color: #111827 !important;
+  border: 1px solid #d5dce6 !important;
+  box-shadow: 0 14px 34px rgba(15, 23, 42, .14) !important;
+}
+html[data-theme="light"] #bakry-global-search-results .bakry-global-search-card,
+html[data-theme="light"] #bakry-global-search-results .bakry-global-search-heading,
+html[data-theme="light"] #bakry-global-search-results .bakry-global-search-item,
+html[data-theme="light"] #bakry-global-search-results .bakry-global-search-item-title strong {
+  background-color: #ffffff !important;
+  color: #111827 !important;
+}
+html[data-theme="light"] #bakry-global-search-results .bakry-global-search-item:hover,
+html[data-theme="light"] #bakry-global-search-results .bakry-global-search-item.active {
+  background: #edf3fa !important;
+}
+html[data-theme="light"] #bakry-global-search-results .bakry-global-search-item-details,
+html[data-theme="light"] #bakry-global-search-results .bakry-global-search-item-title small,
+html[data-theme="light"] #bakry-global-search-results .bakry-global-search-heading {
+  color: #475569 !important;
+}
+html[data-theme="light"] .header-search,
+html[data-theme="light"] .header-search input,
+html[data-theme="light"] .header-search input:focus {
+  background: #ffffff !important;
+  color: #111827 !important;
+  border-color: #cbd5e1 !important;
+  caret-color: #111827 !important;
+}
+html[data-theme="light"] .header-search input::placeholder { color: #64748b !important; opacity: 1; }
+
+/* DARK: the search panel and text stay dark/light respectively; only this theme is affected. */
+html[data-theme="dark"] #bakry-global-search-results {
+  background: #101b2c !important; color: #f8fafc !important; border-color: #334155 !important;
+}
+html[data-theme="dark"] #bakry-global-search-results .bakry-global-search-card,
+html[data-theme="dark"] #bakry-global-search-results .bakry-global-search-item {
+  background-color: #101b2c !important; color: #f8fafc !important;
+}
+html[data-theme="dark"] #bakry-global-search-results .bakry-global-search-item-details,
+html[data-theme="dark"] #bakry-global-search-results .bakry-global-search-item-title small,
+html[data-theme="dark"] #bakry-global-search-results .bakry-global-search-heading { color: #cbd5e1 !important; }
+html[data-theme="dark"] #bakry-global-search-results .bakry-global-search-item:hover,
+html[data-theme="dark"] #bakry-global-search-results .bakry-global-search-item.active { background: #1e3048 !important; }
+
+/* BLUE/GOLD: keep its own blue surface and white text, independent of dark/light rules. */
+html[data-theme="bluegold"] #bakry-global-search-results {
+  background: #071a31 !important; color: #ffffff !important; border-color: rgba(220, 178, 67, .45) !important;
+}
+html[data-theme="bluegold"] #bakry-global-search-results .bakry-global-search-card,
+html[data-theme="bluegold"] #bakry-global-search-results .bakry-global-search-item {
+  background-color: #071a31 !important; color: #ffffff !important;
+}
+html[data-theme="bluegold"] #bakry-global-search-results .bakry-global-search-item-details,
+html[data-theme="bluegold"] #bakry-global-search-results .bakry-global-search-item-title small,
+html[data-theme="bluegold"] #bakry-global-search-results .bakry-global-search-heading { color: #d7e2f0 !important; }
+html[data-theme="bluegold"] #bakry-global-search-results .bakry-global-search-item:hover,
+html[data-theme="bluegold"] #bakry-global-search-results .bakry-global-search-item.active { background: #12365a !important; }
+
+/* Brand text: explicitly set both pieces and developer name in each palette. */
+html[data-theme="light"] #sidebar-brand-name,
+html[data-theme="light"] .sidebar-watermark strong,
+html[data-theme="light"] .login-watermark strong {
+  color: #172033 !important;
+}
+/* Keep the original light-theme gold accent on the showroom name only. */
+html[data-theme="light"] #sidebar-brand-name span {
+  color: #c18e18 !important;
+}
+html[data-theme="dark"] #sidebar-brand-name,
+html[data-theme="dark"] #sidebar-brand-name span,
+html[data-theme="dark"] .sidebar-watermark strong,
+html[data-theme="dark"] .login-watermark strong {
+  color: #ffffff !important;
+}
+html[data-theme="bluegold"] #sidebar-brand-name,
+html[data-theme="bluegold"] #sidebar-brand-name span,
+html[data-theme="bluegold"] .sidebar-watermark strong,
+html[data-theme="bluegold"] .login-watermark strong {
+  color: #ffffff !important;
+}
+
+/* A single dropdown container; compact rows remain inside that one surface. */
+#bakry-global-search-results {
+  padding: 0 !important;
+  overflow: hidden auto;
+  max-height: min(62vh, 470px);
+  border-radius: 12px;
+  z-index: 10000;
+}
+#bakry-global-search-results .bakry-global-search-card { width: 100%; min-width: 0; padding: 7px; direction: rtl; }
+#bakry-global-search-results .bakry-global-search-heading {
+  padding: 7px 9px 9px; margin-bottom: 2px; font-size: 11px; font-weight: 800;
+  border-bottom: 1px solid currentColor; border-bottom-color: rgba(148, 163, 184, .25);
+}
+#bakry-global-search-results .bakry-global-search-list { display: flex; flex-direction: column; }
+#bakry-global-search-results .bakry-global-search-item {
+  display: flex; flex-direction: column; gap: 3px; width: 100%; min-width: 0;
+  border: 0; border-bottom: 1px solid rgba(148, 163, 184, .18); border-radius: 0;
+  padding: 9px 10px; text-align: right; cursor: pointer; font: inherit;
+}
+#bakry-global-search-results .bakry-global-search-item:last-child { border-bottom: 0; }
+#bakry-global-search-results .bakry-global-search-item-title {
+  display: flex; justify-content: space-between; align-items: center; gap: 10px; min-width: 0;
+}
+#bakry-global-search-results .bakry-global-search-item-title strong {
+  min-width: 0; overflow-wrap: anywhere; font-size: 12px; font-weight: 800;
+}
+#bakry-global-search-results .bakry-global-search-item-title small { flex: 0 0 auto; font-size: 10px; }
+#bakry-global-search-results .bakry-global-search-item-details {
+  display: block; min-width: 0; font-size: 10px; line-height: 1.65; overflow-wrap: anywhere;
+}
+
+@media (max-width: 700px) {
+  #bakry-global-search-results {
+    position: fixed; top: 112px; inset-inline: 10px; width: auto;
+    max-height: 48vh; border-radius: 12px;
+  }
+  #bakry-global-search-results .bakry-global-search-card { padding: 5px; }
+  #bakry-global-search-results .bakry-global-search-item { padding: 8px 9px; }
+  #bakry-global-search-results .bakry-global-search-item-details { font-size: 10px; }
+}
