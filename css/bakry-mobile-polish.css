@@ -1,0 +1,457 @@
+/* Bakry ERP — mobile-first page composition, without changing business data.
+   Desktop keeps its existing layout; phones receive a separate fluid arrangement. */
+
+@media (max-width: 1100px) and (min-width: 801px) {
+  .sales-checkout-wrapper {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 16px !important;
+  }
+  .sales-totals-sidebar { width: 100%; min-width: 0; }
+  .sticky-totals { position: static !important; }
+}
+
+@media (max-width: 800px) {
+  html,
+  body {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow-x: clip !important;
+  }
+  *,
+  *::before,
+  *::after { box-sizing: border-box; }
+
+  #app-wrapper,
+  .app-container,
+  .main-content,
+  .content-wrapper,
+  .page,
+  .page.active {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+  .main-content { margin: 0 !important; }
+  .content-wrapper {
+    padding: clamp(9px, 2.8vw, 14px) !important;
+    overflow-x: clip !important;
+  }
+
+  /* Compact mobile header: menu, permissions, date/alerts, then global search. */
+  .top-header {
+    display: grid !important;
+    grid-template-columns: 48px minmax(0, 1fr) !important;
+    grid-template-areas: "toggle actions" "search search" !important;
+    align-items: center !important;
+    gap: 8px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 9px 10px !important;
+    position: relative !important;
+    top: auto !important;
+    z-index: 900 !important;
+  }
+  #bakry-menu-toggle {
+    grid-area: toggle !important;
+    display: inline-flex !important;
+    width: 44px !important;
+    min-width: 44px !important;
+    height: 44px !important;
+    min-height: 44px !important;
+    margin: 0 !important;
+    position: relative !important;
+    z-index: 2203 !important;
+  }
+  .header-actions {
+    grid-area: actions !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) 42px !important;
+    grid-template-areas: "role role" "date bell" !important;
+    align-items: center !important;
+    gap: 6px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    flex: none !important;
+  }
+  .role-switcher-container {
+    grid-area: role !important;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    padding: 5px 8px !important;
+    border-radius: 11px !important;
+  }
+  .role-switcher-container label {
+    display: block !important;
+    flex: 0 0 auto !important;
+    font-size: 10px !important;
+    white-space: nowrap !important;
+  }
+  .role-switcher-container select {
+    flex: 1 1 auto !important;
+    width: 1px !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    padding: 5px 7px !important;
+    font-size: 12px !important;
+  }
+  .header-datetime {
+    grid-area: date !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    padding: 6px 8px !important;
+    border-radius: 10px !important;
+    font-size: 11px !important;
+    line-height: 1.4 !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+  }
+  .notification-bell {
+    grid-area: bell !important;
+    width: 40px !important;
+    height: 40px !important;
+    justify-self: end !important;
+  }
+  .header-search {
+    grid-area: search !important;
+    display: flex !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+  }
+  .header-search input {
+    width: 100% !important;
+    min-width: 0 !important;
+    font-size: 14px !important;
+  }
+
+  /* Page headings and tabs can wrap instead of pushing the viewport sideways. */
+  .page-title-row,
+  .page-header,
+  .section-header {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    gap: 9px !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin-bottom: 15px !important;
+  }
+  .page-title-row h1,
+  .page-title-row h2,
+  .page-header h1,
+  .section-header h2 {
+    max-width: 100% !important;
+    font-size: clamp(18px, 4.8vw, 22px) !important;
+    line-height: 1.45 !important;
+    overflow-wrap: anywhere !important;
+  }
+  .page-title-row p.subtitle { font-size: 12px !important; }
+
+  /* Recompose the sales checkout into one readable column. The financial
+     summary is kept in the document and becomes a full-width card below the
+     customer/vehicle fields instead of sitting off-screen in a second column. */
+  .sales-checkout-wrapper {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    gap: 14px !important;
+    align-items: stretch !important;
+  }
+  .sales-form-container,
+  .sales-totals-sidebar {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    grid-column: 1 / -1 !important;
+  }
+  .sales-totals-sidebar { display: block !important; }
+  .sticky-totals { position: static !important; top: auto !important; }
+  .sales-totals-sidebar .card { width: 100% !important; margin: 0 !important; }
+  .sales-totals-sidebar .card-body { padding: 14px !important; }
+  .financial-inputs {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 12px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+  .sales-totals-sidebar .form-group { width: 100% !important; min-width: 0 !important; }
+  .sales-totals-sidebar .radio-pill-group {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 6px !important;
+    width: 100% !important;
+  }
+  .sales-totals-sidebar .radio-pill-btn {
+    min-width: 0 !important;
+    min-height: 46px !important;
+    padding: 9px 6px !important;
+    white-space: normal !important;
+    line-height: 1.4 !important;
+    overflow-wrap: anywhere !important;
+  }
+  .sales-totals-sidebar #sale-payment-method { width: 100% !important; }
+  .total-invoice-row {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 8px !important;
+  }
+  .total-invoice-row h2 { margin: 0 !important; font-size: 21px !important; }
+
+  #sales-page .sub-tabs-container {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 7px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    border-bottom: 0 !important;
+    margin-bottom: 14px !important;
+  }
+  #sales-page .sub-tab {
+    min-width: 0 !important;
+    min-height: 46px !important;
+    padding: 8px 6px !important;
+    white-space: normal !important;
+    line-height: 1.45 !important;
+    font-size: 12px !important;
+    text-align: center !important;
+  }
+
+  /* Reflow common forms, search filters and section grids on all pages. */
+  .form-grid,
+  .form-row,
+  .grid-2,
+  .grid-3,
+  .dashboard-details-grid,
+  .dashboard-main-grid,
+  .guarantor-row,
+  .search-inputs {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    gap: 12px !important;
+  }
+  div[style*="grid-template-columns"] {
+    grid-template-columns: minmax(0, 1fr) !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+  .form-group,
+  .form-control,
+  .input-group,
+  .search-selection-row,
+  .vertical-center {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  .form-group.col-span-2,
+  .col-span-2 {
+    grid-column: 1 / -1 !important;
+  }
+  .search-selection-row,
+  .vertical-center {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 9px !important;
+  }
+  .vertical-center .btn { width: 100% !important; justify-content: center !important; }
+  .form-group label {
+    line-height: 1.55 !important;
+    overflow-wrap: anywhere !important;
+  }
+  .form-group > *,
+  .form-control > *,
+  .input-group > * {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+  input:not([type="checkbox"]):not([type="radio"]),
+  select,
+  textarea {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    min-height: 44px;
+    font-size: 16px !important;
+  }
+  textarea { min-height: 90px; }
+  .radio-pill-group { flex-wrap: wrap !important; }
+  .radio-pill-btn { min-width: 0 !important; }
+  .btn,
+  button { max-width: 100%; white-space: normal; }
+
+  /* Every content card uses the same spacing and never exceeds its parent. */
+  .card,
+  .glass-card,
+  .metric-card,
+  .search-filter-card,
+  .section-card,
+  .report-card,
+  .summary-card,
+  .panel-card,
+  [class*="-card"] {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    border-radius: 14px !important;
+  }
+  .card-header { padding: 13px 14px !important; gap: 8px !important; flex-wrap: wrap !important; }
+  .card-header h3 { font-size: 14px !important; line-height: 1.5 !important; }
+  .card-body { padding: 14px !important; }
+  .search-filter-card { padding: 12px !important; }
+  .selected-details-box { grid-template-columns: minmax(0, 1fr) !important; }
+  .guarantor-box { min-width: 0 !important; padding: 13px !important; }
+  .metric-card { padding: 13px !important; }
+  .metrics-grid,
+  .stats-grid,
+  .dashboard-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+  }
+  .metric-card h3 { font-size: 13px !important; line-height: 1.45 !important; }
+  .metric-card .metric-value,
+  .metric-value { font-size: clamp(17px, 4.8vw, 21px) !important; overflow-wrap: anywhere !important; }
+
+  /* Tables and wide reports scroll inside their own white containers only. */
+  .table-responsive,
+  .table-container,
+  .data-table-wrapper,
+  .defaults-table-wrap,
+  .inventory-table-wrap,
+  .chassis-table-wrap {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior-x: contain !important;
+    touch-action: pan-x pan-y !important;
+  }
+  .table-responsive table,
+  .table-container table,
+  .data-table-wrapper table,
+  .defaults-table-wrap table,
+  .inventory-table-wrap table,
+  .chassis-table-wrap table,
+  table.data-table {
+    min-width: 650px !important;
+    max-width: none !important;
+    width: max-content !important;
+  }
+  th, td { white-space: nowrap; }
+
+  /* Modals remain above the page, with their own vertical scrolling. */
+  .modal-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    padding: max(8px, env(safe-area-inset-top)) 8px max(8px, env(safe-area-inset-bottom)) !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 3000 !important;
+  }
+  .modal-content {
+    display: flex !important;
+    flex-direction: column !important;
+    width: calc(100vw - 16px) !important;
+    max-width: calc(100vw - 16px) !important;
+    min-width: 0 !important;
+    max-height: calc(100dvh - 16px) !important;
+    overflow: hidden !important;
+    margin: 0 auto !important;
+  }
+  .modal-header,
+  .modal-footer { flex: 0 0 auto !important; min-width: 0 !important; }
+  .modal-body {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  .modal-footer { display: flex !important; flex-wrap: wrap !important; gap: 8px !important; }
+  .modal-footer .btn { flex: 1 1 120px !important; }
+
+  img,
+  video,
+  canvas,
+  iframe { max-width: 100% !important; }
+}
+
+@media (max-width: 420px) {
+  .content-wrapper { padding: 8px !important; }
+  .metrics-grid,
+  .stats-grid,
+  .dashboard-grid { grid-template-columns: minmax(0, 1fr) !important; }
+  .top-header { gap: 6px !important; padding: 8px !important; }
+  .role-switcher-container label { font-size: 9px !important; }
+  .role-switcher-container select { font-size: 11px !important; }
+  .page-title-row h1,
+  .page-header h1,
+  .section-header h2 { font-size: 19px !important; }
+  .card-header,
+  .card-body { padding-inline: 11px !important; }
+  #sales-page .sub-tab { font-size: 11px !important; }
+}
+
+/* Forms wrap the scrollable body in several existing dialogs; make that
+   wrapper a flex column too, otherwise long modals can lose their footer. */
+@media (max-width: 800px) {
+  .modal-content > form {
+    display: flex !important;
+    flex: 1 1 auto !important;
+    flex-direction: column !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+  }
+  .modal-content > form > .modal-body {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow-x: auto !important;
+    overflow-y: auto !important;
+  }
+  .modal-content > form > .modal-footer {
+    flex: 0 0 auto !important;
+  }
+}
+
+@media (max-width: 800px) {
+  /* A few older search rows declared fixed 300–320px minimum widths. */
+  div[style*="min-width: 300px"],
+  div[style*="min-width:300px"],
+  .radio-pill-group[style*="min-width: 320px"],
+  .radio-pill-group[style*="min-width:320px"] {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+}
