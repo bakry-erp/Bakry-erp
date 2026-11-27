@@ -1,0 +1,196 @@
+/* Bakry ERP v3 refinements: brand dialogs, date order, mobile reports and controls. */
+.bakry-dialog-overlay {
+  position: fixed; inset: 0; z-index: 2147483000;
+  display: flex; align-items: center; justify-content: center;
+  padding: 18px; background: rgba(12, 20, 34, .62);
+  backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+}
+.bakry-dialog-panel {
+  width: min(100%, 520px); max-height: min(82dvh, 680px);
+  display: flex; flex-direction: column; overflow: hidden;
+  color: #182338; background: #fff; border: 1px solid rgba(197,151,58,.45);
+  border-radius: 20px; box-shadow: 0 22px 70px rgba(0,0,0,.30);
+  font-family: 'Cairo', sans-serif;
+}
+.bakry-dialog-header {
+  display: flex; align-items: center; gap: 12px; padding: 16px 18px;
+  background: #f8fafc; border-bottom: 1px solid #e7edf4;
+  border-top: 4px solid #d1a64f;
+}
+.bakry-dialog-mark {
+  display: inline-flex; align-items: center; justify-content: center;
+  flex: 0 0 42px; width: 42px; height: 42px; border-radius: 13px;
+  color: #6b511c; background: linear-gradient(145deg,#f4dda5,#d2a44b);
+  font-size: 21px; box-shadow: 0 3px 10px rgba(194,148,56,.18);
+}
+.bakry-dialog-brand-wrap { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.bakry-dialog-brand-wrap strong { color: #17263d; font-size: 18px; font-weight: 900; line-height: 1.4; }
+.bakry-dialog-brand-wrap small { color: #718096; font-size: 11px; }
+.bakry-dialog-message {
+  overflow: auto; overscroll-behavior: contain; padding: 20px 20px 16px;
+  color: #243247; font-size: 15px; line-height: 1.9; font-weight: 600;
+  white-space: pre-wrap; overflow-wrap: anywhere; text-align: right;
+}
+.bakry-dialog-actions {
+  display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 9px;
+  padding: 13px 18px 17px; border-top: 1px solid #edf1f5; background: #fbfcfe;
+}
+.bakry-dialog-btn {
+  min-width: 100px; min-height: 44px; border-radius: 11px; padding: 9px 18px;
+  border: 1px solid transparent; font: 800 14px 'Cairo',sans-serif; cursor: pointer;
+}
+.bakry-dialog-btn-primary { color: #17243a; background: linear-gradient(135deg,#d7ad55,#f0d28e); border-color: #d4ab5a; }
+.bakry-dialog-btn-secondary { color: #344258; background: #eef2f7; border-color: #d8e0ea; }
+.bakry-dialog-btn:focus-visible { outline: 3px solid rgba(50,109,168,.28); outline-offset: 2px; }
+
+/* Force a consistent day / month / year locale while keeping date values ISO internally. */
+input[type="date"] { direction: ltr !important; text-align: center !important; unicode-bidi: isolate; font-variant-numeric: tabular-nums; }
+input[type="date"]::-webkit-datetime-edit { direction: ltr; text-align: center; }
+input[type="date"]::-webkit-calendar-picker-indicator { margin-inline-start: 6px; cursor: pointer; }
+
+.edit-sale-unit-identifiers { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; width: 100%; }
+.edit-sale-unit-identifiers input { width: 100%; min-width: 0; }
+
+@media (max-width: 800px) {
+  /* Move the floating menu control a little higher without touching desktop. */
+  #bakry-menu-toggle { transform: translateY(-6px) !important; align-self: start !important; }
+
+  /* A confirmation should fit the phone width and scroll internally, never overflow. */
+  .bakry-dialog-overlay { padding: 12px; align-items: center; }
+  .bakry-dialog-panel { width: 100%; max-width: 460px; max-height: min(78dvh,620px); border-radius: 17px; }
+  .bakry-dialog-header { padding: 12px 14px; gap: 10px; }
+  .bakry-dialog-mark { flex-basis: 38px; width: 38px; height: 38px; font-size: 19px; }
+  .bakry-dialog-brand-wrap strong { font-size: 16px; }
+  .bakry-dialog-message { padding: 15px 15px 12px; font-size: 14px; line-height: 1.75; }
+  .bakry-dialog-actions { padding: 10px 14px 14px; }
+  .bakry-dialog-btn { flex: 1 1 0; min-width: 0; min-height: 45px; }
+
+  /* The two financial summaries become readable full-width cards on phones. */
+  #reports-page .accounting-grid {
+    display: grid !important; grid-template-columns: minmax(0,1fr) !important;
+    gap: 12px !important; width: 100% !important; min-width: 0 !important;
+  }
+  #reports-page .accounting-summary-card,
+  #reports-page .accounting-summary-card.gradient-cyan-blue,
+  #reports-page .accounting-summary-card.bg-slate-900 {
+    min-width: 0 !important; width: 100% !important; min-height: 0 !important;
+    padding: 14px !important; border-radius: 15px !important;
+    background: #fff !important; color: #17263d !important;
+    border: 1px solid #d8e2ee !important; box-shadow: 0 4px 14px rgba(20,40,70,.06) !important;
+  }
+  #reports-page .accounting-summary-card > div:first-child {
+    color: #23466f !important; font-size: 13px !important;
+    line-height: 1.7 !important; margin-bottom: 10px !important;
+    overflow-wrap: anywhere; border-bottom-color: #e4eaf1 !important;
+  }
+  #reports-page .card-pnl-row {
+    display: grid !important; grid-template-columns: minmax(0,1fr) !important;
+    gap: 8px !important; height: auto !important; width: 100% !important;
+  }
+  #reports-page .card-pnl-row > div:not(.separator-v) {
+    min-width: 0 !important; padding: 10px 11px !important;
+    border: 1px solid #e4eaf1 !important; border-radius: 11px !important;
+    background: #fbfcfe !important;
+  }
+  #reports-page .card-pnl-row .separator-v { display: none !important; }
+  #reports-page .card-pnl-row .lbl,
+  #reports-page .card-pnl-row .lbl[style] {
+    display: block !important; color: #536176 !important;
+    font-size: 12px !important; line-height: 1.55 !important; margin-bottom: 4px !important;
+    overflow-wrap: anywhere;
+  }
+  #reports-page .card-pnl-row .val {
+    margin: 0 !important; font-size: clamp(16px,4.5vw,20px) !important;
+    line-height: 1.5 !important; overflow-wrap: anywhere; word-break: break-word;
+  }
+  #reports-page .accounting-summary-card .text-cyan { color: #24749a !important; }
+  #reports-page .accounting-summary-card .text-emerald { color: #16866f !important; }
+  #reports-page .accounting-summary-card .text-crimson { color: #c94a55 !important; }
+  #reports-page .accounting-summary-card .text-orange { color: #9b6d1d !important; }
+  #reports-page .card-body > div[style*="justify-content: flex-end"] { justify-content: stretch !important; }
+  #reports-page .card-body > div[style*="justify-content: flex-end"] button { width: 100% !important; }
+
+  .edit-sale-unit-identifiers { grid-template-columns: minmax(0,1fr) !important; gap: 8px !important; }
+}
+
+/* Keep duplicate buyer / guarantor history notices inside the form width. */
+.dup-alert-box,
+.dup-alert-box * { box-sizing: border-box; }
+.dup-alert-box {
+  width: 100%; max-width: 100%; min-width: 0;
+  overflow: hidden; overflow-wrap: anywhere; word-break: normal;
+}
+.dup-alert-header,
+.dup-alert-header > div { min-width: 0; max-width: 100%; }
+.dup-alert-header strong { overflow-wrap: anywhere; line-height: 1.65; }
+.dup-stats-pills { min-width: 0; max-width: 100%; }
+.dup-pill-danger, .dup-pill-success,
+.dup-badge { white-space: normal; overflow-wrap: anywhere; }
+.dup-alert-body { width: 100%; max-width: 100%; min-width: 0; overflow: hidden; }
+.dup-alert-body table { width: 100% !important; max-width: 100%; table-layout: fixed; }
+.dup-alert-body th, .dup-alert-body td {
+  min-width: 0; max-width: 100%; overflow-wrap: anywhere; word-break: break-word;
+  white-space: normal;
+}
+
+@media (max-width: 800px) {
+  .dup-alert-box { padding: 10px; border-radius: 12px; }
+  .dup-alert-header { align-items: flex-start; flex-direction: column; gap: 7px; }
+  .dup-alert-header > div:first-child { align-items: flex-start !important; }
+  .dup-alert-body { overflow: visible; }
+  .dup-alert-body table { display: block; border-collapse: separate !important; border-spacing: 0 7px !important; }
+  .dup-alert-body thead { display: none; }
+  .dup-alert-body tbody { display: grid; gap: 8px; width: 100%; }
+  .dup-alert-body tr {
+    display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 5px 8px;
+    width: 100%; min-width: 0; padding: 9px; border: 1px solid rgba(130,150,175,.25);
+    border-radius: 10px; background: rgba(255,255,255,.72);
+  }
+  .dup-alert-body td {
+    display: block; width: 100%; min-width: 0; padding: 3px !important;
+    border: 0 !important; font-size: 11px !important; line-height: 1.55;
+  }
+  .dup-alert-body td:first-child,
+  .dup-alert-body td:last-child { grid-column: 1 / -1; }
+  .dup-alert-body td::before {
+    display: block; margin-bottom: 2px; color: #68778b; font-size: 10px; font-weight: 800;
+  }
+  .dup-alert-body td:nth-child(1)::before { content: 'الدور السابق'; }
+  .dup-alert-body td:nth-child(2)::before { content: 'رقم الفاتورة'; }
+  .dup-alert-body td:nth-child(3)::before { content: 'التاريخ'; }
+  .dup-alert-body td:nth-child(4)::before { content: 'الفرع'; }
+  .dup-alert-body td:nth-child(5)::before { content: 'حالة المعاملة'; }
+  .dup-alert-body .dup-badge { max-width: 100%; }
+}
+
+/* Explicit date entry order (day / month / year) on every browser locale. */
+.bakry-date-field {
+  position: relative; display: flex; align-items: stretch; gap: 8px;
+  width: 100%; max-width: 100%; min-width: 0;
+}
+.bakry-date-control {
+  flex: 1 1 auto !important; width: auto !important; min-width: 0 !important;
+  direction: ltr !important; text-align: center !important;
+  unicode-bidi: isolate; font-variant-numeric: tabular-nums;
+  letter-spacing: .02em;
+}
+.bakry-date-control::placeholder { color: #8491a3; opacity: 1; }
+.bakry-date-picker-button {
+  display: inline-flex; align-items: center; justify-content: center;
+  flex: 0 0 44px; width: 44px; min-width: 44px; min-height: 42px;
+  border: 1px solid #cbd5e1; border-radius: 9px;
+  background: #fff; color: #31445e; font-size: 16px; cursor: pointer;
+}
+.bakry-date-picker-button:focus-visible { outline: 3px solid rgba(50,109,168,.25); outline-offset: 2px; }
+.bakry-date-native-picker {
+  position: absolute !important; z-index: -1 !important;
+  top: 50% !important; right: 5px !important; transform: translateY(-50%) !important;
+  width: 1px !important; height: 1px !important; min-width: 1px !important;
+  padding: 0 !important; margin: 0 !important; opacity: 0 !important;
+  pointer-events: none !important; border: 0 !important;
+}
+@media (max-width: 800px) {
+  .bakry-date-field { gap: 6px; }
+  .bakry-date-picker-button { flex-basis: 42px; width: 42px; min-width: 42px; min-height: 44px; }
+  .bakry-date-control { font-size: 14px !important; }
+}
