@@ -1,0 +1,140 @@
+/* Bakry ERP - light cards and readable contrast (desktop + mobile)
+   Keeps the existing layout and behavior; only restores the requested light surfaces. */
+
+:root,
+html[data-theme] {
+  --bg-dark: #f3f6fb !important;
+  --bg-surface: #ffffff !important;
+  --bg-input: #ffffff !important;
+  --text-primary: #111827 !important;
+  --text-secondary: #1f2937 !important;
+  --text-muted: #4b5563 !important;
+  --border-color: rgba(37, 99, 235, .34) !important;
+  --border-hover: rgba(220, 38, 38, .58) !important;
+  --primary: #2563eb !important;
+  --primary-hover: #1d4ed8 !important;
+  --primary-glow: rgba(37, 99, 235, .13) !important;
+  --cyan: #dc2626 !important;
+  --cyan-glow: rgba(220, 38, 38, .10) !important;
+  --shadow-sm: 0 2px 9px rgba(15, 23, 42, .07) !important;
+  --shadow-md: 0 6px 16px rgba(15, 23, 42, .10) !important;
+  --shadow-lg: 0 12px 28px rgba(15, 23, 42, .14) !important;
+}
+
+html, body {
+  background: #f3f6fb !important;
+  color: #111827 !important;
+}
+
+/* Main cards, panels, filters, popups and dashboard blocks. */
+:is(
+  .sidebar, .sidebar-brand, .sidebar-menu, .sidebar-footer,
+  .top-header, .glass-card, .metric-card, .card, .search-filter-card,
+  .modal-content, .login-card, .user-status-card, .health-card,
+  .stock-list-item, .selected-details-box, .autocomplete-dropdown,
+  .table-container, .table-responsive, .form-section, .section-card,
+  .report-card, .summary-card, .panel-card, [class*="-card"]
+) {
+  background: #ffffff !important;
+  color: #111827 !important;
+  border: 1px solid #2563eb !important;
+  box-shadow: 0 2px 9px rgba(15, 23, 42, .07) !important;
+}
+
+/* Alternating red/blue outlines add definition without dark fills. */
+:is(.metric-card, .glass-card, .card, .stock-list-item):nth-child(even) {
+  border-color: #dc2626 !important;
+}
+:is(.metric-card, .glass-card, .card, .stock-list-item):hover {
+  border-color: #dc2626 !important;
+}
+
+/* Keep card copy dark and readable, while preserving semantic status badges
+   and the foreground colors of action buttons/icons. */
+:is(.glass-card, .metric-card, .card, .search-filter-card, .modal-content,
+    .login-card, .health-card, .stock-list-item, .selected-details-box,
+    .form-section, .section-card, .report-card, .summary-card, [class*="-card"]) *:not(.btn):not(.badge):not([class*="badge"]):not([class*="status"]):not([class*="text-success"]):not([class*="text-danger"]):not([class*="text-warning"]):not(i):not(svg):not(path) {
+  color: #111827 !important;
+}
+
+.card-header, .modal-header, .modal-footer, .card-body {
+  background-color: #ffffff !important;
+  color: #111827 !important;
+  border-color: #2563eb !important;
+}
+
+/* All form fields are white with black text, including fields that had
+   dark inline styles in the original page markup. */
+input, select, textarea, .form-control, .readonly-input {
+  background-color: #ffffff !important;
+  color: #111827 !important;
+  border-color: #2563eb !important;
+}
+input::placeholder, textarea::placeholder {
+  color: #6b7280 !important;
+  opacity: 1;
+}
+option { background: #ffffff !important; color: #111827 !important; }
+
+/* Inline dark panels/cards from older page sections. Do not touch full-screen
+   overlays or the deliberate single-tab blocker. */
+:not(.modal-overlay):not(#single-tab-blocker)[style*="rgba(15, 23, 42"],
+:not(.modal-overlay):not(#single-tab-blocker)[style*="rgba(15,23,42"],
+:not(.modal-overlay):not(#single-tab-blocker)[style*="rgba(0,0,0,0.2"],
+:not(.modal-overlay):not(#single-tab-blocker)[style*="rgba(0, 0, 0, 0.2"],
+:not(.modal-overlay):not(#single-tab-blocker)[style*="rgba(0,0,0,0.25"],
+:not(.modal-overlay):not(#single-tab-blocker)[style*="rgba(0, 0, 0, 0.25"] {
+  background: #ffffff !important;
+  color: #111827 !important;
+  border-color: #2563eb !important;
+}
+
+/* Keep the dark screen dimmer as a dimmer; only its popup panel is white. */
+.modal-overlay { background-color: rgba(15, 23, 42, .28) !important; }
+#backup-progress-modal.modal-overlay { background: rgba(15, 23, 42, .72) !important; }
+#single-tab-blocker { background-color: rgba(15, 23, 42, .95) !important; color: #f8fafc !important; }
+
+/* The receipt itself remains a clean white printable document. */
+#receipt-print-body { background: #ffffff !important; color: #111827 !important; }
+#receipt-print-body .receipt-wrapper { background: #ffffff !important; color: #111827 !important; }
+
+/* Lighten table regions and separators without removing status colors. */
+table, .table, .data-table, .table-responsive, .table-container,
+.table-responsive table, .table-container table {
+  background-color: #ffffff !important;
+  color: #111827 !important;
+}
+thead, .card-header { border-color: #2563eb !important; }
+th, td { color: #111827; }
+
+/* Sidebar and mobile drawer remain white in both breakpoints. */
+.sidebar, .sidebar-brand, .sidebar-menu, .sidebar-footer {
+  background: #ffffff !important;
+  color: #111827 !important;
+}
+.sidebar .menu-item { color: #1f2937 !important; }
+.sidebar .menu-item i { color: #2563eb !important; }
+.sidebar .menu-item.active { background: #eff6ff !important; border-color: #2563eb !important; }
+
+/* Preserve colored action buttons and semantic status badges. */
+.btn-primary, .btn-danger, .btn-success, .badge, .badge-status,
+.alert, .status-badge, .text-success, .text-danger, .text-warning {
+  /* Their original semantic foreground/background colors are intentional. */
+}
+
+@media (max-width: 800px) {
+  .card, .glass-card, .metric-card, .search-filter-card, .modal-content,
+  .health-card, .stock-list-item, .selected-details-box {
+    background: #ffffff !important;
+    color: #111827 !important;
+  }
+}
+
+.accounting-summary-card,
+.accounting-summary-card.gradient-cyan-blue,
+.accounting-summary-card.bg-slate-900 {
+  background: #ffffff !important;
+  color: #111827 !important;
+  border: 1px solid #2563eb !important;
+}
+.accounting-summary-card .summary-top { color: #111827 !important; }
