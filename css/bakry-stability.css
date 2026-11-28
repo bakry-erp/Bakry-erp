@@ -1,0 +1,47 @@
+/* Bakry ERP stability layer — loaded after all legacy/mobile rules. */
+html:not(.bakry-authenticated) #app-wrapper { display:none !important; }
+html:not(.bakry-authenticated) #login-overlay { display:flex !important; }
+html.bakry-booting #login-overlay { cursor:wait; }
+#app-wrapper.is-navigating .content-wrapper { opacity:0 !important; pointer-events:none !important; }
+#app-wrapper .content-wrapper { transition:opacity .12s ease; }
+
+/* Fixed showroom title: the white theme stays dark; dark/blue themes use gold only for البكري. */
+html[data-theme="light"] #sidebar-brand-name,
+html[data-theme="light"] #login-brand-name { color:#111827 !important; }
+html[data-theme="light"] #sidebar-brand-name .bakry-brand-surname,
+html[data-theme="light"] #login-brand-name .bakry-brand-surname { color:#111827 !important; }
+html[data-theme="dark"] #sidebar-brand-name,
+html[data-theme="dark"] #login-brand-name,
+html[data-theme="bluegold"] #sidebar-brand-name,
+html[data-theme="bluegold"] #login-brand-name { color:#f8fafc !important; }
+html[data-theme="dark"] #sidebar-brand-name .bakry-brand-surname,
+html[data-theme="dark"] #login-brand-name .bakry-brand-surname,
+html[data-theme="bluegold"] #sidebar-brand-name .bakry-brand-surname,
+html[data-theme="bluegold"] #login-brand-name .bakry-brand-surname { color:#e2b84f !important; }
+
+/* Mobile stylesheet previously forced every generic span gold; target only the surname class. */
+@media(max-width:800px){
+  html[data-theme="light"] .sidebar-brand h2#sidebar-brand-name { color:#111827 !important; }
+  html[data-theme="light"] .sidebar-brand h2#sidebar-brand-name .bakry-brand-surname { color:#111827 !important; }
+  html[data-theme="dark"] .sidebar-brand h2#sidebar-brand-name,
+  html[data-theme="bluegold"] .sidebar-brand h2#sidebar-brand-name { color:#fff !important; }
+  html[data-theme="dark"] .sidebar-brand h2#sidebar-brand-name .bakry-brand-surname,
+  html[data-theme="bluegold"] .sidebar-brand h2#sidebar-brand-name .bakry-brand-surname { color:#e2b84f !important; }
+  #login-overlay { align-items:flex-start !important; overflow-y:auto !important; padding:12px !important; }
+  #login-overlay .login-card { margin:auto !important; max-height:none !important; padding:24px 18px !important; }
+}
+.login-cloud-fields { margin:8px 0 14px; padding:12px; border:1px solid var(--border-color); border-radius:12px; background:var(--bg-surface); }
+#login-hint { display:none; color:#b91c1c; font-weight:700; margin-top:10px; line-height:1.7; overflow-wrap:anywhere; }
+#login-mode-select,#login-cloud-fields input { width:100%; }
+#main-login-form button[type="submit"]:disabled { opacity:.7; cursor:wait; }
+.empty-state { padding:22px 12px; text-align:center; color:var(--text-secondary); font-size:13px; }
+
+.local-auth-note{margin:12px 0 0;padding:10px 12px;border:1px solid #e7d9ad;border-radius:10px;background:#fff9e9;color:#765a1b;font-size:11px;line-height:1.8}
+html[data-theme="light"] #login-brand-name,html[data-theme="light"] #login-brand-name *{color:#111827!important}
+html[data-theme="light"] #sidebar-brand-name,html[data-theme="light"] #sidebar-brand-name *{color:#111827!important}
+html[data-theme="dark"] #login-brand-name,html[data-theme="bluegold"] #login-brand-name{color:#f8fafc!important}
+html[data-theme="dark"] #login-brand-name .bakry-brand-surname,html[data-theme="bluegold"] #login-brand-name .bakry-brand-surname{color:#e2b84f!important}
+
+@media (prefers-reduced-motion: reduce) {
+  #app-wrapper .content-wrapper { transition:none !important; }
+}
